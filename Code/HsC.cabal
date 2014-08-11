@@ -1,0 +1,20 @@
+name:           HsC
+version:        0.1
+cabal-version:  >=1.2
+build-type:     Simple
+author:         Rimmer
+
+executable HsC
+  main-is:         Main.hs
+  hs-source-dirs:  Compiler
+  build-depends:   
+                   base >= 4,
+                   parsec >=3.1.5 && <3.2,
+                   haskeline >=0.7.1 && <0.8,
+                   mtl >=2.1.2 && <2.2
+  ghc-options:     
+  other-modules:   
+                   Lexer,
+                   Parser,
+                   Syntax
+
