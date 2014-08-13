@@ -54,6 +54,25 @@ Default parameters are only used if the function is called with named arguments.
     drawBlackChar ch = drawChar 'text ch
     drawWhiteChar ch = drawChar ch White
     
+##Operators
+An operator is a function that takes one or two arguments.
+Operators can be defined like normal functions:
+
+	(*) -> mul
+	(<>) lhs rhs -> if valid lhs -> lhs 
+	                else         -> rhs
+	               
+	(-) a -> negate a
+An operator can be binary or unary, where binary operators are left- or right associative,
+and unary operators are prefix or postfix. This can be declared separately, together with precedence:
+
+	postfix 4 (!)
+	prefix 10 (-)
+	infix 6 (*)
+	infix 5 (+)
+	infixr (<>)
+	
+    
 ##Statements
 Each block consists of one or more statements.
 A block is opened after one of the following:
