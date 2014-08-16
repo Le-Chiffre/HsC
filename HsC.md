@@ -342,7 +342,26 @@ This means that it is necessary to check if the cast succeeded before using the 
                 else 0f
 It is also possible to check if a reference is of a certain type through the `is` operator.
 
-	g x:Shape = x is Circle
+    g x:Shape = x is Circle
+	
+### Monads
+The type system in HsC supports implementing monad types without any magic needed.
+However, we define a special syntax for using monads, since using operators would make it complicated and ugly.
+Like in OCaml, the syntax is used through 'perform' blocks:
+
+    // We assume that we have a Parsec-like parser library here.
+    if_expr -> Parser Expr = perform
+        reserved "if"
+        cond <- expr
+        reserved "then"
+        true <- expr
+        reserved "else"
+        false <- expr
+        return (IfExpr cond true false)
+
+This can be implemented in a very simple way.
+ * A normal function call statement is translated to "call >> next_stmt"
+ * An "x <- call" statement is translated to "call >>= (\x -> next_stmt x)"
 	
 ## Memory
 HsC uses garbage collection by default. An object can be allocated with the `new` operator:
