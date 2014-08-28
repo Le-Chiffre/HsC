@@ -387,4 +387,48 @@ Reflection data can be retrieved with the `typeinfo` function:
     Dimension.typeinfo.fields == [("width", 0, F32.typeinfo), ("height", 4, F32.typeinfo)]
 
 Reflection can be used for automatic serialization and deserialization, and a lot more.
+
+##Blocks
+Code blocks are defined by indentation. Each new expression in a block must have the same indentation as the first non-whitespace character after a block opener. A code block as a whole is also an expression which takes the value of the last expression in the block. A line with higher indentation than the first line is part of the last expression on the previous line, while a line with lower indentation closes the block.
+
+Blocks are opened by the following:
+ * The (=) operator
+ * `var`
+ * `let`
+ * `do`
+ * `then` after `if`
+ * `else` after `if`
+ * `of` after `case`
+
+As a special case, the else-part of an if-statement can be on the same line as the `if` to improve readability.
+It is also possible to separate function arguments by line; each line will act as surrounding parentheses around its contents.
+
+Examples:
+
+    let x = 5 `pow` 6
+    let y = x * x      // Two separate expressions in the same block.
     
+    let z = let a = 5
+            a * 2      // x == 10, while a goes out of scope after this line.
+            
+    var
+      a = 10
+      b = 5
+      c = 15           // Three variable bindings.
+    
+    number a = 1 * 2 * 3 * 4 * 5 *
+                  6 * 7 * 8
+                  * 9 * a             // This is ugly, but valid
+                  
+    if number 5 == 10 then
+      something 10
+      10
+    else
+      number 5
+            
+    fn_with_many_params
+      something x y
+      somethingElse z 6
+      23 * number 8
+      0
+      Nothing
