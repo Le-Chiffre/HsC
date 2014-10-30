@@ -378,14 +378,24 @@ To represent optional values there is the `Maybe` type, with special syntax to r
 	
 ## Reflection
 HsC supports static reflection for all types and dynamic reflection for classes.
-Reflection data can be retrieved with the `typeinfo` function:
+Reflection data can be retrieved with the `typeinfo` function on a type or instance:
 
     F32.typeinfo.name == "F32"
     F32.typeinfo.size == 4
-    F32.typeinfo.fields == []
+    0f.typeinfo.fields == []
+    False.typeinfo.name == "Bool"
     
     Dimension.typeinfo.fields == [("width", 0, F32.typeinfo), ("height", 4, F32.typeinfo)]
 
+When called on a class *instance*, typeinfo returns the dynamic type of the instance. Example:
+    
+    class A = var a : Int
+    class B : A = var b : Int
+    
+    f x:#A = x.typeinfo.fields.size
+    
+    do f (#B 2 3) // Returns 2, not 1.
+    
 Reflection can be used for automatic serialization and deserialization, and a lot more.
 
 ##Blocks
